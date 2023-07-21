@@ -9,9 +9,9 @@ import java.util.List;
 
 @Entity
 @Data
-//@Table(name = "Materia")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "Materia")
 
 public class Materia {
 
@@ -23,9 +23,6 @@ public class Materia {
     @NotBlank(message = "El nombre de la materia no puede estar en blanco")
     private String nombre;
 
-    @ManyToMany(mappedBy = "materia")
-    private List<Estudiante> estudiantes;
-
-    public Materia(Object o, String matematicas) {
-    }
+//    @ManyToMany(mappedBy = "materia")
+//    private List<Estudiante> estudiantes;
 }

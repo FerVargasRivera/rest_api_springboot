@@ -1,17 +1,17 @@
 package com.example.rest_api_springboot.controller;
 
+import com.example.rest_api_springboot.errors.MateriaNotFoundException;
 import com.example.rest_api_springboot.model.Materia;
 import com.example.rest_api_springboot.persistence.MateriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@Validated
+@RequestMapping("/Materia")
 public class MateriaController {
-    @Autowired
+    @Autowired //Injectar las dependencias necesarias
     MateriaRepository materiaRepository;
 
     @GetMapping("/Materia")
@@ -21,8 +21,7 @@ public class MateriaController {
 
     @GetMapping("/Materia/{id}")
     Materia getById(@PathVariable Long id) {
-
-        return materiaRepository.findById(id).get();
+        return materiaRepository.findById(id).orElseThrow(() -> new MateriaNotFoundException(id));
     }
 
     @PostMapping("/Materia")
