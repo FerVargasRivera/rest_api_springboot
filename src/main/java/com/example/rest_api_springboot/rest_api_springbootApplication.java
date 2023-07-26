@@ -96,8 +96,8 @@ public class rest_api_springbootApplication implements CommandLineRunner {
 	}
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder()
-				.title("Shop APIs")
-				.description("Spring Boot Shop APIs Documentation")
+				.title("CRUD APIs")
+				.description("Spring Boot CRUD APIS Documentation")
 				.version("1.0.0")
 				.build();
 	}
