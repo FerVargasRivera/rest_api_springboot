@@ -12,7 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@EnableSwagger2
 @SpringBootApplication
 public class rest_api_springbootApplication implements CommandLineRunner {
 
@@ -30,6 +39,8 @@ public class rest_api_springbootApplication implements CommandLineRunner {
 	GrupoRepository grupoRepository;
 	@Autowired
 	ProfesorRepository profesorRepository;
+
+	// Acceso a la consola de H2: http://localhost:8080/h2-console
 
 	//Creamos el metodo run para hacer las inserciones a las tablas
 	@Override
@@ -73,5 +84,22 @@ public class rest_api_springbootApplication implements CommandLineRunner {
 	 estudianteRepository.save(new Estudiante(null,"Iker","Casillas","Sotelo",23,"iker_casillas@gmail.com",1,group2));
 	}
 
+	// Acceso a la interfaz de usuario de SWAGGER: http://localhost:8080/swagger-ui/index.html#/
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.example.rest_api_springboot.controller"))
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo());
+	}
+	private ApiInfo apiInfo() {
+		return new ApiInfoBuilder()
+				.title("Shop APIs")
+				.description("Spring Boot Shop APIs Documentation")
+				.version("1.0.0")
+				.build();
+	}
 
 }
