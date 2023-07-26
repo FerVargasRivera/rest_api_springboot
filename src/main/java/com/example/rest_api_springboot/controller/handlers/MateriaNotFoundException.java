@@ -1,4 +1,4 @@
-package com.example.rest_api_springboot.errors;
+package com.example.rest_api_springboot.controller.handlers;
 
 public class MateriaNotFoundException extends RuntimeException{
     private Long id;

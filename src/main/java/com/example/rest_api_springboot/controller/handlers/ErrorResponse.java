@@ -1,4 +1,4 @@
-package com.example.rest_api_springboot.errors;
+package com.example.rest_api_springboot.controller.handlers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

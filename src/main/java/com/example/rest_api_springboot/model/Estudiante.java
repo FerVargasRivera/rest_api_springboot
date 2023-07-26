@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.List;
 
 @Entity
@@ -13,32 +14,45 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
+//Definimos la estructura de la tabla con su respectivas validaciones
 public class Estudiante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long EstudianteId;
 
-    @Column(nullable = false)
+    //Indicamos que es una columna en nuestra tabla
+    @Column(nullable = false, length = 255)
+    //Validaciones con JSR 380
+    @NotBlank(message = "El nombre del estudiante es requerido")
+    @Size(min = 4, max = 255, message = "El nombre del estudiante debe tener al menos 5 caracteres y ser menor a 255")
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
+    @NotBlank(message = "El apellido paterno del estudiante es requerido")
+    @Size(min = 4, max = 255, message = "El apellido paterno del estudiante debe tener al menos 5 caracteres y ser menor a 50")
     private String apellidoP;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
+    @NotBlank(message = "El apellido materno del estudiante es requerido")
+    @Size(min = 4, max = 255, message = "El apellido materno del estudiante debe tener al menos 5 caracteres y ser menor a 50")
     private String apellidoM;
 
     @Column(nullable = false)
-    private Integer edad;
+    @NotNull(message = "La edad del estudiante es requerida")
+    @Min(value = 15, message = "El estudiante debe tener al menos 15 años")
+    @Max(value = 30, message = "El estudiante no puede tener mas de 30 años")
+    private int edad;
 
+    @Email(message = "Debe ingresar una direccion de correo valida")
+    private String correoContacto;
+
+    @Column(nullable = false)
+    @NotNull(message = "El estatus del estudiante es requerido")
+    private int activo = 1;
+
+    //Relacion muchos a uno en este caso un solo grupo
     @ManyToOne
-    private Grupo grupo;
-
-    @JoinTable(
-            name = "rel_estudiantes_materias",
-            joinColumns = @JoinColumn(name = "FK_ESTUDIANTE", nullable = false),
-            inverseJoinColumns = @JoinColumn(name="FK_MATERIA", nullable = false)
-    )
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Materia> materia;
+    @JoinColumn(name = "GrupoId", referencedColumnName = "GrupoId")
+    private Grupo grupoId;
 }

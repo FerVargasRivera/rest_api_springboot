@@ -5,7 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Data
@@ -19,10 +20,12 @@ public class Materia {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long MateriaId;
 
-    @Column(nullable = false)
-    @NotBlank(message = "El nombre de la materia no puede estar en blanco")
+    @Column(nullable = false, length = 255)
+    @NotBlank(message = "El nombre de la materia es requerido")
+    @Size(min = 4, max = 255, message = "El nombre de la materia debe tener al menos 5 caracteres y ser menor a 255")
     private String nombre;
 
-//    @ManyToMany(mappedBy = "materia")
-//    private List<Estudiante> estudiantes;
+    @Column(nullable = false)
+    @NotNull(message = "El estatus de la materia es requerido")
+    private int activo = 1;
 }

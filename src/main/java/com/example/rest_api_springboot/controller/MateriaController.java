@@ -1,50 +1,52 @@
 package com.example.rest_api_springboot.controller;
 
-import com.example.rest_api_springboot.errors.MateriaNotFoundException;
 import com.example.rest_api_springboot.model.Materia;
-import com.example.rest_api_springboot.persistence.MateriaRepository;
+import com.example.rest_api_springboot.services.MateriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Materia")
 public class MateriaController {
-    @Autowired //Injectar las dependencias necesarias
-    MateriaRepository materiaRepository;
+
+    @Autowired
+    MateriaService materiaService;
 
     @GetMapping("/Materia")
-    List<Materia> all() {
-        return materiaRepository.findAll();
+    public List<Materia> getMaterias() {
+        return materiaService.obtenMaterias();
+    }
+
+    @GetMapping(value="/Materia/Inactivas")
+    List<Materia> allInactivas()
+    {
+        return materiaService.materiasInactivas();
     }
 
     @GetMapping("/Materia/{id}")
     Materia getById(@PathVariable Long id) {
-        return materiaRepository.findById(id).orElseThrow(() -> new MateriaNotFoundException(id));
+        return materiaService.obtenMateria(id);
     }
 
     @PostMapping("/Materia")
-    Materia createNew(@RequestBody Materia newMateria) {
-        return materiaRepository.save(newMateria);
+    Materia createNew(@Valid @RequestBody Materia newMateria) {
+        return materiaService.guardaMateria(newMateria);
     }
 
     @DeleteMapping("/Materia/{id}")
-    void delete(@PathVariable Long id) {
-        materiaRepository.deleteById(id);
+    String delete(@PathVariable Long id) {
+        boolean res = this.materiaService.eliminaMateria(id);
+        if(res){
+            return "Se eliminó correctamente la materia con el id " + id;
+        }else{
+            return "No se pudo eliminar la materia con el id " + id;
+        }
     }
 
     @PutMapping("/Materia/{id}")
-    Materia updateOrCreate(@RequestBody Materia newMateria, @PathVariable Long MateriaId) {
-
-        return materiaRepository.findById(MateriaId)
-                .map(materia -> {
-                    materia.setNombre(newMateria.getNombre());
-                    return materiaRepository.save(materia);
-                })
-                .orElseGet(() -> {
-                    newMateria.setMateriaId(MateriaId);
-                    return materiaRepository.save(newMateria);
-                });
+    Materia updateOrCreate(@Valid @RequestBody Materia newMateria, @PathVariable Long id) {
+        return materiaService.actualizaOCreaMateria(newMateria, id);
     }
 }
