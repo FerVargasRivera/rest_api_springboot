@@ -14,7 +14,7 @@
 	<name>rest_api_springboot</name>
 	<description>rest_api_springboot Project</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
