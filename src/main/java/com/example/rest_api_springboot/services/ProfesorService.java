@@ -20,10 +20,10 @@ public class ProfesorService {
         return profesorRepository.findAll();
     }
 
-    public List<Profesor> profesoresInactivos()
+    public List<Profesor> filtroProfesor(int status)
     {
 
-        return profesorRepository.findByActivo(0);
+        return profesorRepository.findByActivo(status);
     }
 
     public Profesor obtenProfesor(long id) {

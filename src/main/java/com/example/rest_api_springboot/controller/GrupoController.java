@@ -22,11 +22,11 @@ public class GrupoController {
         return grupoService.obtenGrupos();
     }
 
-    @GetMapping(value="/Grupo/Inactivos")
-    @ApiOperation("Obtener todos los grupos inactivos")
-    List<Grupo> allInactivos()
+    @GetMapping(value="/Grupo/Filtrar/{status}")
+    @ApiOperation("Obtener todos los grupos inactivos filtrados por activos o inactivos")
+    List<Grupo> filtrar(@PathVariable int status)
     {
-        return grupoService.gruposInactivos();
+        return grupoService.filtroGrupo(status);
     }
 
     @GetMapping("/Grupo/{id}")

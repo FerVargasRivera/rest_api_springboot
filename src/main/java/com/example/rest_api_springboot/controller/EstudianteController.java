@@ -23,11 +23,11 @@ public class EstudianteController {
         return estudianteService.obtenEstudiantes();
     }
 
-    @GetMapping(value="/Estudiante/Inactivos")
-    @ApiOperation("Obtener todos los estudiantes inactivos")
-    List<Estudiante> allInactivos()
+    @GetMapping(value="/Estudiante/Filtrar/{status}")
+    @ApiOperation("Obtener todos los estudiantes filtrados por activos o inactivos")
+    List<Estudiante> filtrar(@PathVariable int status)
     {
-        return estudianteService.estudiantesInactivos();
+        return estudianteService.filtroEstudiante(status);
     }
 
     @GetMapping("/Estudiante/{id}")

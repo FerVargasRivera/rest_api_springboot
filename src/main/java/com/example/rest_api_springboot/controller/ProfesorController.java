@@ -22,11 +22,11 @@ public class ProfesorController {
         return profesorService.obtenProfesores();
     }
 
-    @GetMapping(value="/Profesor/Inactivos")
-    @ApiOperation("Obtener todos los profesores inactivos")
-    List<Profesor> allInactivos()
+    @GetMapping(value="/Profesor/Filtrar/{status}")
+    @ApiOperation("Obtener todos los profesores filtrados por activos o inactivos")
+    List<Profesor> filtrar(@PathVariable int status)
     {
-        return profesorService.profesoresInactivos();
+        return profesorService.filtroProfesor(status);
     }
 
     @GetMapping("/Profesor/{id}")

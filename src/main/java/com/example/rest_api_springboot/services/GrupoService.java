@@ -20,10 +20,10 @@ public class GrupoService {
         return grupoRepository.findAll();
     }
 
-    public List<Grupo> gruposInactivos()
+    public List<Grupo> filtroGrupo(int status)
     {
 
-        return grupoRepository.findByActivo(0);
+        return grupoRepository.findByActivo(status);
     }
 
     public Grupo obtenGrupo(long id) {

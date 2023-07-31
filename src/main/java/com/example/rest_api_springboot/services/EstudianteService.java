@@ -21,10 +21,9 @@ public class EstudianteService {
         return estudianteRepository.findAll();
     }
 
-    public List<Estudiante> estudiantesInactivos()
+    public List<Estudiante> filtroEstudiante(int status)
     {
-
-        return estudianteRepository.findByActivo(0);
+        return estudianteRepository.findByActivo(status);
     }
 
     public Estudiante obtenEstudiante(long id) {

@@ -23,11 +23,11 @@ public class MateriaController {
         return materiaService.obtenMaterias();
     }
 
-    @GetMapping(value="/Materia/Inactivas")
-    @ApiOperation("Obtener todas las materias inactivas")
-    List<Materia> allInactivas()
+    @GetMapping(value="/Materia/Filtrar/{status}")
+    @ApiOperation("Obtener todas las materias filtradas por activas o inactivas")
+    List<Materia> filtrar(@PathVariable int status)
     {
-        return materiaService.materiasInactivas();
+        return materiaService.filtroMateria(status);
     }
 
     @GetMapping("/Materia/{id}")

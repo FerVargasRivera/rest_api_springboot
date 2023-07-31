@@ -28,7 +28,7 @@ Los requisitos para poder ejecutar la API son los siguientes:
 ## EndPoints
 La API proporciona los siguientes endpoints para la interacción con la base de datos
 - GET /Entidad: Obtiene todos los elementos almacenados en la base de datos.
-- GET /Entidad/{Estatus}: Obtiene todos los elementos de la base de datos filtrados por activos o inactivos.
+- GET /Entidad/Filtrar/{estatus}: Obtiene todos los elementos de la base de datos filtrados por activos pasamos como parámetro 1 o inactivos pasamos como parámetro 0.
 - GET /Entidad/{id}: Obtiene un elemento específico por su ID.
 - POST /Entidad: Crea un nuevo elemento en la base de datos.
 - PUT /Entidad/{id}: Actualiza un elemento existente por su ID.

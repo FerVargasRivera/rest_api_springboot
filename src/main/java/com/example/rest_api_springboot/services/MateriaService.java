@@ -20,10 +20,10 @@ public class MateriaService {
         return materiaRepository.findAll();
     }
 
-    public List<Materia> materiasInactivas()
+    public List<Materia> filtroMateria(int status)
     {
 
-        return materiaRepository.findByActivo(0);
+        return materiaRepository.findByActivo(status);
     }
 
     public Materia obtenMateria(long id) {
