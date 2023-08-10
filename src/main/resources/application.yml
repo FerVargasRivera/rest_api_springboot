@@ -10,8 +10,8 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
 
   datasource:
-    url: jdbc:mysql://localhost:3306/apirest?serverTimezone=UTC
-    #url: jdbc:mysql://127.0.0.1:3306/apirest_docker?useSSL=false
+    #url: jdbc:mysql://localhost:3306/apirest?serverTimezone=UTC
+    url: jdbc:mysql://127.0.0.1:3306/apirest_docker?useSSL=false
     username: root
     password: 1234567
     driver-class-name: com.mysql.cj.jdbc.Driver
