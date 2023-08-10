@@ -1,5 +1,6 @@
 package com.example.rest_api_springboot.controller;
 
+import com.example.rest_api_springboot.controller.handlers.GrupoNotFoundException;
 import com.example.rest_api_springboot.model.Grupo;
 import com.example.rest_api_springboot.services.GrupoService;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class GrupoController {
     @GetMapping("/Grupo/{id}")
     @ApiOperation("Obtener un grupo por medio de su id")
     Grupo getById(@PathVariable Long id) {
-        return grupoService.obtenGrupo(id);
+        return grupoService.obtenGrupo(id).orElseThrow(() -> new GrupoNotFoundException(id));
     }
 
     @PostMapping("/Grupo")

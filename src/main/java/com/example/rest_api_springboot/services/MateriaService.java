@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class MateriaService {
 
     @Autowired //Injectar las dependencias necesarias
-    private final MateriaRepository materiaRepository;
+    MateriaRepository materiaRepository;
 
     public List<Materia> obtenMaterias(){
         return materiaRepository.findAll();
@@ -26,8 +26,9 @@ public class MateriaService {
         return materiaRepository.findByActivo(status);
     }
 
-    public Materia obtenMateria(long id) {
-        return materiaRepository.findById(id).orElseThrow(() -> new MateriaNotFoundException(id));
+    public Optional<Materia> obtenMateria(long id) {
+        return materiaRepository.findById(id);
+
     }
 
     public Materia guardaMateria(Materia newMateria) {

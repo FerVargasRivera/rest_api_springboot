@@ -1,5 +1,6 @@
 package com.example.rest_api_springboot.controller;
 
+import com.example.rest_api_springboot.controller.handlers.ProfesorNotFoundException;
 import com.example.rest_api_springboot.model.Profesor;
 import com.example.rest_api_springboot.services.ProfesorService;
 import io.swagger.annotations.Api;
@@ -32,7 +33,7 @@ public class ProfesorController {
     @GetMapping("/Profesor/{id}")
     @ApiOperation("Obtener un profesor por medio de su id")
     Profesor getById(@PathVariable Long id) {
-        return profesorService.obtenProfesor(id);
+        return profesorService.obtenProfesor(id).orElseThrow(() -> new ProfesorNotFoundException(id));
     }
 
     @PostMapping("/Profesor")

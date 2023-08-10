@@ -1,6 +1,7 @@
 package com.example.rest_api_springboot.services;
 
 import com.example.rest_api_springboot.controller.handlers.ProfesorNotFoundException;
+import com.example.rest_api_springboot.model.Estudiante;
 import com.example.rest_api_springboot.model.Grupo;
 import com.example.rest_api_springboot.model.Profesor;
 import com.example.rest_api_springboot.persistence.ProfesorRepository;
@@ -9,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ProfesorService {
     @Autowired //Injectar las dependencias necesarias
-    private final ProfesorRepository profesorRepository;
+    ProfesorRepository profesorRepository;
 
     public List<Profesor> obtenProfesores(){
         return profesorRepository.findAll();
@@ -26,8 +28,8 @@ public class ProfesorService {
         return profesorRepository.findByActivo(status);
     }
 
-    public Profesor obtenProfesor(long id) {
-        return profesorRepository.findById(id).orElseThrow(() -> new ProfesorNotFoundException(id));
+    public Optional<Profesor> obtenProfesor(long id) {
+        return profesorRepository.findById(id);
     }
 
     public Profesor guardaProfesor(Profesor newProfesor) {

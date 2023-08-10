@@ -1,5 +1,6 @@
 package com.example.rest_api_springboot.controller;
 
+import com.example.rest_api_springboot.controller.handlers.MateriaNotFoundException;
 import com.example.rest_api_springboot.model.Materia;
 import com.example.rest_api_springboot.services.MateriaService;
 import io.swagger.annotations.Api;
@@ -33,7 +34,7 @@ public class MateriaController {
     @GetMapping("/Materia/{id}")
     @ApiOperation("Obtener una materia por medio de su id")
     Materia getById(@PathVariable Long id) {
-        return materiaService.obtenMateria(id);
+        return materiaService.obtenMateria(id).orElseThrow(() -> new MateriaNotFoundException(id));
     }
 
     @PostMapping("/Materia")

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EstudianteService {
+public class GrupoService {
     @Autowired //Injectar las dependencias necesarias
     GrupoRepository grupoRepository;
 

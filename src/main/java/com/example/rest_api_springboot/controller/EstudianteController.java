@@ -1,5 +1,6 @@
 package com.example.rest_api_springboot.controller;
 
+import com.example.rest_api_springboot.controller.handlers.EstudianteNotFoundException;
 import com.example.rest_api_springboot.model.Estudiante;
 import com.example.rest_api_springboot.services.EstudianteService;
 import io.swagger.annotations.Api;
@@ -33,7 +34,7 @@ public class EstudianteController {
     @GetMapping("/Estudiante/{id}")
     @ApiOperation("Obtener un estudiante por medio de su id")
     Estudiante getById(@PathVariable Long id) {
-        return estudianteService.obtenEstudiante(id);
+        return estudianteService.obtenEstudiante(id).orElseThrow(() -> new EstudianteNotFoundException(id));
     }
 
     @PostMapping("/Estudiante")

@@ -2,6 +2,7 @@ package com.example.rest_api_springboot.services;
 
 import com.example.rest_api_springboot.controller.handlers.EstudianteNotFoundException;
 import com.example.rest_api_springboot.model.Estudiante;
+import com.example.rest_api_springboot.model.Grupo;
 import com.example.rest_api_springboot.model.Materia;
 import com.example.rest_api_springboot.persistence.EstudianteRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class EstudianteService {
     @Autowired //Injectar las dependencias necesarias
-    private final EstudianteRepository estudianteRepository;
+    EstudianteRepository estudianteRepository;
 
     //Metodos necesarios para consultar, editar y eliminar los registros
     public List<Estudiante> obtenEstudiantes(){
@@ -26,8 +27,8 @@ public class EstudianteService {
         return estudianteRepository.findByActivo(status);
     }
 
-    public Estudiante obtenEstudiante(long id) {
-        return estudianteRepository.findById(id).orElseThrow(() -> new EstudianteNotFoundException(id));
+    public Optional<Estudiante> obtenEstudiante(long id) {
+        return estudianteRepository.findById(id);
     }
 
     public Estudiante guardaEstudiante(Estudiante newEstudiante) {
